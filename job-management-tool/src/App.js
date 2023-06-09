@@ -1,9 +1,12 @@
 import './App.css';
 import { RealtimeData } from './components/realtimeData';
-import NavBar from './components/NavBar';
-import AddJob from './components/JobForm';
+import NavBar from './components/NavBar/NavBar';
+import AddJob from './components/JobForm/JobForm';
 import JobDetails from './components/JobDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 
 

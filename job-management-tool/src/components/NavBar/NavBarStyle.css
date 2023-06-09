@@ -1,0 +1,41 @@
+.color-nav {
+    background-color: #EDBBCE;
+    color: #2E36AA !important;
+    margin-top: 10px;
+    font-family: 'Alatsi', sans-serif;
+
+
+}
+
+.nav-links {
+    float: right;
+    
+}
+
+.nav-links a:hover {
+    background-color: #EFDCCE;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+    border-radius: 10px;
+  }
+
+.nav-links a {
+    color: #2E36AA !important ;
+    margin: 10px !important;
+    text-decoration: none !important;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+.nav-links a.active {
+    color: #aa2e9c !important ;
+    margin: 10px !important;
+    text-decoration: none !important;
+    background-color: white;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

@@ -1,13 +1,10 @@
 import { ref, onValue, set } from "firebase/database";
 import { db } from "../../utils/firebase";
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
+import Table from 'react-bootstrap/Table';
+import { Container } from "@mui/material";
+
 
 export class RealtimeData extends React.Component {
     constructor() {
@@ -33,45 +30,45 @@ export class RealtimeData extends React.Component {
 
     render() {
         return(
-            <TableContainer component={Paper} style={{marginTop: '30px', marginBottom: '30px'}}>
+          <Container>
             <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow>
-                    <TableCell>#</TableCell>
-                  <TableCell>Company</TableCell>
-                  <TableCell align="right">Position</TableCell>
-                  <TableCell align="right">Application Date</TableCell>
-                  <TableCell align="right">Follow Up Date</TableCell>
-                  {/* <TableCell align="right">Job ID</TableCell>
-                  <TableCell align="right">Application ID</TableCell> */}
-                  <TableCell align="right">Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+              <thead>
+                <tr>
+                    <th>#</th>
+                  <th>Company</th>
+                  <th align="right">Position</th>
+                  <th align="right">Application Date</th>
+                  <th align="right">Follow Up Date</th>
+                  {/* <th align="right">Job ID</th>
+                  <th align="right">Application ID</th> */}
+                  <th align="right">Status</th>
+                </tr>
+              </thead>
+              <tbody>
                 {this.state.tableData.map((job, index) => {
                     return (
-                  <TableRow
+                  <tr
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>{index}</TableCell>
-                    <TableCell component="th" scope="row">
+                    <th>{index}</th>
+                    <th component="th" scope="row">
                       {job.data.company}
-                    </TableCell>
+                    </th>
                     
-                    <TableCell align="right">
+                    <th align="right">
                         <a href={job.data.jobLink}>{job.data.position}
                             </a>
-                        </TableCell>
-                    <TableCell align="right">{job.data.appDate}</TableCell>
-                    <TableCell align="right">{job.data.followUpDate}</TableCell>
-                    {/* <TableCell align="right">{job.data.jobID}</TableCell> 
-                    <TableCell align="right">{job.data.appID}</TableCell> */}
-                    <TableCell align="right">{job.data.status}</TableCell>
-                  </TableRow>
+                        </th>
+                    <th align="right">{job.data.appDate}</th>
+                    <th align="right">{job.data.followUpDate}</th>
+                    {/* <th align="right">{job.data.jobID}</th> 
+                    <th align="right">{job.data.appID}</th> */}
+                    <th align="right">{job.data.status}</th>
+                  </tr>
                 )})}
-              </TableBody>
+              </tbody>
             </Table>
-          </TableContainer>
+            </Container>
         )
     }
 }
