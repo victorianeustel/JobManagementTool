@@ -33,8 +33,8 @@ export class RealtimeData extends React.Component {
 
     render() {
         return(
-            <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableContainer component={Paper} style={{marginTop: '30px', marginBottom: '30px'}}>
+            <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
                     <TableCell>#</TableCell>

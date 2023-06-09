@@ -1,12 +1,8 @@
 import { TextField } from "@mui/material";
+import React from "react";
 import { useRef, useState } from "react";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Select, FormControl, MenuItem, InputLabel, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { getDatabase, ref, set } from "firebase/database";
-
 
 function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status) {
     const db = getDatabase();
@@ -36,7 +32,15 @@ const AddJob = () => {
     const appDateInputRef = useRef(null);
     const followDateInputRef = useRef(null);
 
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleChange = (event) => {
         setJob({ ...job, [event.target.name]: event.target.value });
@@ -46,11 +50,15 @@ const AddJob = () => {
         event.preventDefault();
         writeJobData(job.appDate, job.appID, job.company, job.followUpDate, job.jobID, job.jobLink, job.position, job.status)
         console.log("job created: ", job);
+        setOpen(true);
     };
 
     return (
-        <div className="create">
+        <div className="create" style={{margin: '30px'}}>
             <h2>Add a New Job Application</h2>
+            <Box>
+
+            </Box>
             <Box
                 component="form"
                 sx={{
@@ -119,7 +127,7 @@ const AddJob = () => {
                         name="followUpDate"
                         onChange={handleChange}                    >
                     </TextField> */}
-                                        <div>
+                    <div>
                         <input
                             type="date"
                             name="followUpDate"
@@ -180,7 +188,23 @@ const AddJob = () => {
                         <MenuItem value={'Archived'}>Archived</MenuItem>
                     </Select>
                 </div>
-                <button onClick={handleSubmit}>Add Job Application</button>
+                <Button onClick={handleSubmit} variant='contained' sx={{color:'white', background: '#243c55'}}>Add Job Application</Button>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Job Application Added."}
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleClose} autoFocus >
+                            Close
+                        </Button>
+                        
+                    </DialogActions>
+                </Dialog>
                 {/* </FormControl> */}
             </Box>
 

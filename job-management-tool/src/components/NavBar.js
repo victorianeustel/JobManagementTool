@@ -2,28 +2,27 @@ import React from "react";
 import {
   AppBar,
   Toolbar,
-  CssBaseline,
-  Typography,
+  Typography, Stack, Button
 } from "@mui/material";
 import { Link } from "react-router-dom";
-
 
 function Navbar() {
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{background: '#f7d9d9', borderWidth: '2px', borderBottomStyle: 'solid', borderBottomColor: '#7a8a7c'}}>
       <Toolbar>
-        <Typography variant="h4" >
+        <Typography variant="h4"  color='RGB(18, 26, 72)'>
           Job Management Tool
         </Typography>
-          <div >
+          <Stack spacing={2} direction="row" marginLeft={'15px'}> 
+
             <Link to="/addjob" >
-              Add Job
+              <Button variant='contained' sx={{color:'white', background: '#243c55'}}>Add Job</Button>
             </Link>
             <Link to="/" >
-              Job Applications
+            <Button variant='contained' sx={{color:'white', background: '#243c55'}}>Current Application</Button>
             </Link>
-          </div>
+            </Stack>
       </Toolbar>
     </AppBar>
   );
