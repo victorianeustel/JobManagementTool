@@ -1,9 +1,8 @@
 import { getDatabase, ref, set } from "firebase/database";
 
-function writeJobData(id, appDate, appID, company, followUpDate, jobID, jobLink, position, status) {
+export default function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status) {
   const db = getDatabase();
-  set(ref(db, 'jobApplications/' + id), {
-    id: id,
+  set(ref(db, 'jobApplications/' + position + '-' + company), {
     appDate: appDate,
     appID : appID,
     company: company,
