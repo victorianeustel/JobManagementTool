@@ -7,10 +7,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer/footer';
 
-
-
-
-
 function App() {
   return (
     <Router>
@@ -20,9 +16,8 @@ function App() {
           <Route exact path="/addjob" element={<AddJob/>}/>
           <Route exact path="/jobdetails/:id" element={<JobDetails/>}/>
         </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
-
   );
 }
 

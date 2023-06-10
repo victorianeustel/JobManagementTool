@@ -2,7 +2,7 @@
     margin-top: 20px;
     background-color: white;
     border-radius: 20px;
-    padding: 15px;
+    padding: 25px;
     margin-left: 20%;
     margin-right: 20%;
     margin-bottom: 3%;
@@ -38,7 +38,7 @@ Button{
     width: 40%;
 }
 
-.date-picker, .status-select, input{
+#inputFollowUpDate, #inputAppDate, #inputStatus, input{
     padding: 5px;
     border-radius: 5px;
     width: 100%;

@@ -33,7 +33,6 @@ export class RealtimeData extends React.Component {
         return(
           <Container className='jobs-container'>
             <h4 className='form-title'>Job Applications</h4>
-
             <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
               <thead>
                 <tr>

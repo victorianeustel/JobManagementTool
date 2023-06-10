@@ -10,9 +10,9 @@ function NavBar() {
         <h3 href="/">Job Management Tool</h3>
         <div>
           <Nav className="nav-links">
-            <a href="/" ><h8>Home</h8></a>
-            <a href="/addjob" ><h8>Add Job</h8></a>
-            <a href="/" ><h8>View Applications</h8></a>
+            <a href="/" ><p>Home</p></a>
+            <a href="/addjob" ><p>Add Job</p></a>
+            <a href="/" ><p>View Applications</p></a>
           </Nav>
         </div>
       </Container>
