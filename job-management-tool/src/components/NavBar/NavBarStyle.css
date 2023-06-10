@@ -3,13 +3,10 @@
     color: #2E36AA !important;
     margin-top: 10px;
     font-family: 'Alatsi', sans-serif;
-
-
 }
 
 .nav-links {
     float: right;
-    
 }
 
 .nav-links a:hover {
@@ -18,7 +15,7 @@
     padding-left: 10px;
     padding-right: 10px;
     color: black;
-    border-radius: 10px;
+    border-radius: 50px;
   }
 
 .nav-links a {

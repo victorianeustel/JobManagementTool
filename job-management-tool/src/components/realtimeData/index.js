@@ -1,9 +1,10 @@
 import { ref, onValue, set } from "firebase/database";
 import { db } from "../../utils/firebase";
 import * as React from 'react';
-
 import Table from 'react-bootstrap/Table';
 import { Container } from "@mui/material";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import './JobDataStyle.css';
 
 
 export class RealtimeData extends React.Component {
@@ -30,18 +31,19 @@ export class RealtimeData extends React.Component {
 
     render() {
         return(
-          <Container>
-            <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
+          <Container className='jobs-container'>
+            <h4 className='form-title'>Job Applications</h4>
+
+            <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
               <thead>
                 <tr>
-                    <th>#</th>
+                    {/* <th>#</th> */}
                   <th>Company</th>
                   <th align="right">Position</th>
                   <th align="right">Application Date</th>
                   <th align="right">Follow Up Date</th>
-                  {/* <th align="right">Job ID</th>
-                  <th align="right">Application ID</th> */}
                   <th align="right">Status</th>
+                  <th align="right"></th>
                 </tr>
               </thead>
               <tbody>
@@ -50,7 +52,7 @@ export class RealtimeData extends React.Component {
                   <tr
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <th>{index}</th>
+                    {/* <th>{index}</th> */}
                     <th component="th" scope="row">
                       {job.data.company}
                     </th>
@@ -61,9 +63,13 @@ export class RealtimeData extends React.Component {
                         </th>
                     <th align="right">{job.data.appDate}</th>
                     <th align="right">{job.data.followUpDate}</th>
-                    {/* <th align="right">{job.data.jobID}</th> 
-                    <th align="right">{job.data.appID}</th> */}
                     <th align="right">{job.data.status}</th>
+                    <th align="right">
+                      <a href="/">
+                      <MoreHorizIcon />
+
+                      </a>
+                      </th>
                   </tr>
                 )})}
               </tbody>
