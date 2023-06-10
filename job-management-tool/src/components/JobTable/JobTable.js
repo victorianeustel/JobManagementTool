@@ -5,13 +5,13 @@ import Table from 'react-bootstrap/Table';
 import { Container } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import './JobDataStyle.css';
+import Spinner from 'react-bootstrap/Spinner';
 
-
-export class RealtimeData extends React.Component {
+export class JobTable extends React.Component {
     constructor() {
         super();
         this.state = {
-            tableData: []
+            tableData: [], isLoading: true
         }
     }
 
@@ -25,11 +25,23 @@ export class RealtimeData extends React.Component {
                 let data = childSnapshot.val();
                 records.push({"key": keyName, "data": data});
             });
-            this.setState({tableData: records});
+            this.setState({tableData: records, isLoading: false});
         });
     }
 
     render() {
+      const {tableData, isLoading } = this.state;
+
+      //if data hasn't loaded yet
+      if (isLoading){
+        return (
+          <div className ='loading-container'>
+            <Spinner animation="border" variant="light"/>
+          </div>
+            )
+      }
+      //when data has been loaded
+      else {
         return(
           <Container className='jobs-container'>
             <h4 className='form-title'>Job Applications</h4>
@@ -46,7 +58,7 @@ export class RealtimeData extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.tableData.map((job, index) => {
+                {tableData.map((job, index) => {
                     return (
                   <tr
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -75,5 +87,5 @@ export class RealtimeData extends React.Component {
             </Table>
             </Container>
         )
-    }
+    }}
 }

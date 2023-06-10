@@ -9,6 +9,23 @@
     border-color: #2E36AA;
     width: 68% !important;
     font-size: 12px;
+    animation: fadeInAnimation 0.25s linear;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-container{
+    height: 100vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h4{

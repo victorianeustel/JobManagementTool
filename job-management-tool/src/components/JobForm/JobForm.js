@@ -11,7 +11,7 @@ import { Dialog, DialogActions, DialogTitle } from '@mui/material';
 
 function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, notes) {
     const db = getDatabase();
-    set(ref(db, 'jobApplications/' + company + "-" + position + '-' + appDate), {
+    set(ref(db, 'jobApplications/' + appDate + "-" + company + '-' + position), {
         appDate: appDate,
         appID: appID,
         company: company,
