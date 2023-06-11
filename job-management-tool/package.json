@@ -12,9 +12,11 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^4.6.0",
     "firebase": "^9.22.2",
+    "openai": "^3.2.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-headless-tabs": "^6.0.4",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

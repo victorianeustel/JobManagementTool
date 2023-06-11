@@ -2,7 +2,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import './NavBarStyle.css';
+import '../styles/NavBarStyle.css';
 
 function NavBar() {
   return (
@@ -13,7 +13,7 @@ function NavBar() {
           <Nav className="nav-links">
             <a href="/" >Home</a>
             <a href="/addjob" >Add Job</a>
-            <a href="/jobapplications" >View Applications</a>
+            <a href="/jobs" >View Applications</a>
           </Nav>
         </div>
       </Container>

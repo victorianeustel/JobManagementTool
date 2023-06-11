@@ -1,21 +1,27 @@
 import './App.css';
-import { JobTable } from './components/JobTable/JobTable';
-import NavBar from './components/NavBar/NavBar';
-import AddJob from './components/JobForm/JobForm';
-import JobDetails from './components/JobDetails/JobDetails';
+import { JobTable } from './components/JobTable';
+import NavBar from './components/NavBar';
+import AddJob from './components/JobForm';
+import JobDetails from './components/JobDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from './components/Footer/footer';
+import Footer from './components/footer';
+import StatusTabs from './components/JobLanding';
+import JobDetail from './components/JobDetails';
+import ChatbotApp from './components/openai';
 
 function App() {
   return (
     <Router>
-    <NavBar />
-        <Routes>
-          <Route exact path="/" element={<JobTable/>}/>
-          <Route exact path="/jobapplications" element={<JobTable/>}/>
-          <Route exact path="/addjob" element={<AddJob/>}/>
-          <Route exact path="/jobdetails/:id" element={<JobDetails/>}/>
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<StatusTabs />} />
+        <Route exact path="/jobs" element={<JobTable />} />
+        <Route exact path="/addjob" element={<AddJob />} />
+        <Route path="/jobs/:jobKey" element={<JobDetail/>} />
+        <Route exact path="/chatbot" element={<ChatbotApp />} />
+
+
         </Routes>
       {/* <Footer /> */}
     </Router>

@@ -1,9 +1,9 @@
 import { Container } from "@mui/material";
 import React from "react";
-import { useRef, useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
+import { useState } from "react";
+import { getDatabase, ref, push } from "firebase/database";
 import Form from 'react-bootstrap/Form';
-import './FormStyle.css';
+import '../styles/FormStyle.css';
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,7 +11,7 @@ import { Dialog, DialogActions, DialogTitle } from '@mui/material';
 
 function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, notes) {
     const db = getDatabase();
-    set(ref(db, 'jobApplications/' + appDate + "-" + company + '-' + position), {
+    push(ref(db, 'jobApplications/'), {
         appDate: appDate,
         appID: appID,
         company: company,
@@ -36,8 +36,6 @@ const AddJob = () => {
         status: '',
         notes: ''
     })
-    const appDateInputRef = useRef(null);
-    const followDateInputRef = useRef(null);
 
     const [open, setOpen] = React.useState(false);
     const [errors, setErrors] = useState({})
@@ -90,11 +88,9 @@ const AddJob = () => {
                         <Form.Group class="col-md-6" as={Col}>
                             <Form.Label for="inputCompany" class="form-label">Company</Form.Label>
                             <Form.Control
-                                size="md"
                                 type="text"
                                 placeholder="Google"
                                 name="company"
-                                value={form.company}
                                 isInvalid={!!errors.company}
                                 class="form-control"
                                 id="inputCompany"
@@ -108,7 +104,6 @@ const AddJob = () => {
                         <Form.Group class="col-md-6">
                             <Form.Label for="inputPosition" class="form-label">Position</Form.Label>
                             <Form.Control
-                                size="md"
                                 type="text"
                                 placeholder="Software Developer"
                                 name="position"
@@ -131,7 +126,6 @@ const AddJob = () => {
                                 name="appDate"
                                 class="form-control"
                                 onChange={handleChange}
-                                ref={appDateInputRef}
                                 isInvalid={!!errors.appDate}
                                 required
                             />
@@ -147,7 +141,6 @@ const AddJob = () => {
                                 name="followUpDate"
                                 class="form-control"
                                 onChange={handleChange}
-                                ref={followDateInputRef}
                             />
                         </Form.Group>
                     </Row>
@@ -155,7 +148,6 @@ const AddJob = () => {
                         <Form.Group class="col-md-6">
                             <Form.Label for="inputJobId" class="form-label">Job ID</Form.Label>
                             <Form.Control
-                                size="md"
                                 type="text"
                                 placeholder="12345"
                                 name="jobID"
@@ -167,7 +159,6 @@ const AddJob = () => {
                         <Form.Group class="col-md-6">
                             <Form.Label for="inputAppId" class="form-label">Application ID</Form.Label>
                             <Form.Control
-                                size="md"
                                 type="text"
                                 placeholder="12345"
                                 name="appID"
@@ -181,7 +172,6 @@ const AddJob = () => {
                         <Form.Group class="col-8">
                             <Form.Label for="inputJobLink" class="form-label">Job Link</Form.Label>
                             <Form.Control
-                                size="md"
                                 type="text"
                                 placeholder="www.indeed.com/JobPosition"
                                 name="jobLink"
@@ -202,11 +192,10 @@ const AddJob = () => {
                                 name="status"
                                 id="inputStatus"
                                 onChange={handleChange}
-                                defaultValue="Select Status"
                                 isInvalid={!!errors.status}
                                 required
                             >
-                                <option selected disabled value="Select Status">Select Status</option>
+                                <option selected disabled>Select Status</option>
                                 <option value="Applied">Applied</option>
                                 <option value="Followed Up">Followed Up</option>
                                 <option value="Interviewing">Interviewing</option>

@@ -1,11 +1,14 @@
-import { ref, onValue, set } from "firebase/database";
-import { db } from "../../utils/firebase";
+import { ref, onValue } from "firebase/database";
+import { db } from "../utils/firebase";
 import * as React from 'react';
 import Table from 'react-bootstrap/Table';
 import { Container } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import './JobDataStyle.css';
+import '../styles/JobDataStyle.css';
 import Spinner from 'react-bootstrap/Spinner';
+import { Link } from 'react-router-dom';
+import JobDetail from "./JobDetails";
+
 
 export class JobTable extends React.Component {
     constructor() {
@@ -48,7 +51,7 @@ export class JobTable extends React.Component {
             <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
               <thead>
                 <tr>
-                    {/* <th>#</th> */}
+                    <th>id</th>
                   <th>Company</th>
                   <th align="right">Position</th>
                   <th align="right">Application Date</th>
@@ -63,7 +66,7 @@ export class JobTable extends React.Component {
                   <tr
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    {/* <th>{index}</th> */}
+                    <th>{job.key}</th>
                     <th component="th" scope="row">
                       {job.data.company}
                     </th>
@@ -76,10 +79,12 @@ export class JobTable extends React.Component {
                     <th align="right">{job.data.followUpDate}</th>
                     <th align="right">{job.data.status}</th>
                     <th align="right">
-                      <a href="/">
-                      <MoreHorizIcon />
-
-                      </a>
+                      <Link to={`/jobs/${job.key}`} state={{
+                        job: job.data
+                        // id: job.key, company: job.company, position: job.position, appDate: job.appDate, followUpDate: job.followUpDate, jobLink: job.jobLink, status: job.status, notes: job.notes
+                        }}>
+                        <MoreHorizIcon />
+                      </Link>
                       </th>
                   </tr>
                 )})}
