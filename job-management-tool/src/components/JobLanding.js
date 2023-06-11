@@ -3,8 +3,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import TabContainer from 'react-bootstrap/TabContainer'
 import Container from 'react-bootstrap/esm/Container';
 import { JobTable } from './JobTable';
-
-
+import React  from 'react';
 
 function StatusTabs() {
   return (

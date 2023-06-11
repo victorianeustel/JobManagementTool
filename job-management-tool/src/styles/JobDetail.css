@@ -1,0 +1,36 @@
+.job-form {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border: 2px;
+    border-style: solid;
+    border-color: #2E36AA;
+    width: 60%;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.job-header{
+    margin-bottom: 18px;
+}
+
+#jobKey {
+    font-size:small;
+    opacity: 50%;
+}
+
+.job-detail{
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+
+

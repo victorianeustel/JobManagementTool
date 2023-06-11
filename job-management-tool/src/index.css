@@ -3,7 +3,12 @@ body {
   font-family: 'Alatsi', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EDBBCE !important;
+  /* background-color: #EDBBCE !important; */
+  background-image: url('assets/gradient-background.jpg') !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  
 }
 
 code {

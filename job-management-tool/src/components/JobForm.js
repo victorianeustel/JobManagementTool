@@ -1,13 +1,9 @@
-import { Container } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { getDatabase, ref, push } from "firebase/database";
-import Form from 'react-bootstrap/Form';
-import '../styles/FormStyle.css';
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {Button, Row, Col, Form, Container} from "react-bootstrap";
 import { Dialog, DialogActions, DialogTitle } from '@mui/material';
+import '../styles/FormStyle.css';
 
 function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, notes) {
     const db = getDatabase();
@@ -194,8 +190,9 @@ const AddJob = () => {
                                 onChange={handleChange}
                                 isInvalid={!!errors.status}
                                 required
+                                defaultValue={"Select Status"}
                             >
-                                <option selected disabled>Select Status</option>
+                                <option disabled>Select Status</option>
                                 <option value="Applied">Applied</option>
                                 <option value="Followed Up">Followed Up</option>
                                 <option value="Interviewing">Interviewing</option>
@@ -224,6 +221,7 @@ const AddJob = () => {
                             <Button
                                 type="submit"
                                 class="btn btn-primary"
+                                id="submit-button"
                                 onClick={handleSubmit}>
                                 Add Job Application
                             </Button>

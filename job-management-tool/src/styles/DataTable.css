@@ -28,11 +28,33 @@
     align-items: center;
 }
 
-h4{
-    margin-top: 20px !important;
-}
-
 tbody{
-    size: 10px;
+    font-size: 10px;
 }
 
+#badge{
+  border-radius: 20px;
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  font-size: 10px;
+  color: white;
+}
+
+/* BADGE COLORS - based on application status value (class name) */
+.Applied{
+  background-color: #EFDCCE;
+}
+
+.Followed{
+  background-color: #ccbde3;
+}
+
+.Archived {
+  background-color: rgb(213, 213, 213);
+}
+
+.Interviewing {
+  background-color: #eecdda;
+}
