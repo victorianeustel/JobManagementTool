@@ -5,7 +5,7 @@ import {Button, Row, Col, Form, Container} from "react-bootstrap";
 import { Dialog, DialogActions, DialogTitle } from '@mui/material';
 import '../styles/FormStyle.css';
 
-function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, notes) {
+function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, jobDescription, notes) {
     const db = getDatabase();
     push(ref(db, 'jobApplications/'), {
         appDate: appDate,
@@ -16,6 +16,7 @@ function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, pos
         jobLink: jobLink,
         position: position,
         status: status,
+        jobDescription: jobDescription,
         notes: notes
     });
 };
@@ -26,11 +27,12 @@ const AddJob = () => {
         position: '',
         appDate: '',
         followUpDate: '',
-        appID: '',
-        jobID: '',
+        appID: 'N/A',
+        jobID: 'N/A',
         jobLink: '',
         status: '',
-        notes: ''
+        jobDescription: '',
+        notes: 'N/A'
     })
 
     const [open, setOpen] = React.useState(false);
@@ -52,13 +54,15 @@ const AddJob = () => {
     };
 
     const validateForm = () => {
-        const { company, position, appDate, jobLink, status } = form
+        const { company, position, appDate, jobLink, status, jobDescription } = form
         const newErrors = {}
         if (!company || company === '') newErrors.company = 'Company name cannot be blank'
         if (!position || position === '') newErrors.position = 'Job Position cannot be blank'
         if (!appDate || appDate === '') newErrors.appDate = 'Job Application Date cannot be blank'
         if (!status || status === '') newErrors.status = 'App. Status cannot be blank'
         if (!jobLink || jobLink === '') newErrors.jobLink = 'Link to job description cannot be blank'
+        if (!jobDescription || jobDescription === '') newErrors.jobDescription = 'Please add job description.'
+
 
         return newErrors
     }
@@ -70,7 +74,7 @@ const AddJob = () => {
             setErrors(formErrors);
         }
         else {
-            writeJobData(form.appDate, form.appID, form.company, form.followUpDate, form.jobID, form.jobLink, form.position, form.status, form.notes)
+            writeJobData(form.appDate, form.appID, form.company, form.followUpDate, form.jobID, form.jobLink, form.position, form.status, form.jobDescription, form.notes)
             setOpen(true);
         }
     };
@@ -201,6 +205,19 @@ const AddJob = () => {
                             <Form.Control.Feedback type='invalid'>
                                 {errors.status}
                             </Form.Control.Feedback>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Form.Group class="col-12">
+                            <Form.Label for="inputDescription" class="form-label">Job Description:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                className="form-control"
+                                id="inputDescription"
+                                onChange={handleChange}
+                                placeholder="Add job description."
+                                name="jobDescription"
+                            />
                         </Form.Group>
                     </Row>
                     <Row>

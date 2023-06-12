@@ -19,7 +19,6 @@ function App() {
         <Route exact path="/jobs" element={<JobTable />} />
         <Route exact path="/addjob" element={<AddJob />} />
         <Route path="/jobs/:jobKey" element={<JobDetail />}/>
-        {/* <Route exact path="/chatbot" element={<ChattyApp />} /> */}
       </Routes>
       {/* <Footer /> */}
     </Router>

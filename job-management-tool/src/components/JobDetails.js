@@ -1,16 +1,64 @@
 import { useLocation } from 'react-router-dom'
 import { useState, React } from "react";
 import '../styles/JobDetail.css';
-import { Button, Row, Col, Container, Form, Label } from "react-bootstrap";
+import { Button, Row, Col, Container, Form, Label, Modal, Spinner } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
-import InterviewQuestions from './OpenAiData';
 import '../styles/Global.css';
+import axios from 'axios';
+import LoadingButton from './Button';
+
+const fetchData = async (input) => {
+  const model = "text-davinci-003";
+  const response = await axios.post(
+    "https://api.openai.com/v1/completions",
+    {
+      prompt: `"${input}" \n Create an ordered list of five interview questions based on the job description. `,
+      model: model,
+      temperature: 0.5,
+      max_tokens: 150,
+      top_p: 1.0,
+      frequency_penalty: 0.8,
+      presence_penalty: 0.0,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+      },
+    }
+  );
+  return response.data.choices[0].text;
+};
+
+
 
 function JobDetail() {
   const location = useLocation();
   const job = location.state?.job;
   const jobKey = location.state?.jobKey;
-  
+
+  var linkSubString = (job.jobLink).substring(0, 30) + "...";
+
+  const [questions, setQuestions] = useState("");
+  const [show, setShow] = useState(false);
+  const [showLoader, setShowLoader] = useState(false)
+
+  const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  async function handleClick() {
+    try {
+      setShowLoader(true);
+      const questions = await fetchData(job.jobDescription);
+      setQuestions(questions);
+      console.log(questions);
+
+      setShow(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Container className='form-container'>
       <div className="details-form">
@@ -22,7 +70,13 @@ function JobDetail() {
             </div>
           </Col>
           <Col md={4}>
-            <Button>Interview Questions</Button>
+            {/* <Button onClick={handleClick}>Interview Questions</Button> */}
+            <LoadingButton
+              text="Interview Questions"
+              onSubmit={handleClick}
+              loading={showLoader}
+              disabled={showLoader}
+            />
           </Col>
         </Row>
 
@@ -58,17 +112,24 @@ function JobDetail() {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col md={6}>
               <Form.Label>Job Link</Form.Label>
               <div className='job-detail'>
                 <a href={job.jobLink}>
-                  {job.jobLink} 
+                  {/* {job.jobLink} */}
+                  {linkSubString}
                 </a>
-                </div>
+              </div>
             </Col>
-            <Col>
+            <Col md={4}>
               <Form.Label>Status</Form.Label>
               <div className={job.status} id="badge">{job.status} </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Label>Job Description</Form.Label>
+              <div className='job-detail notes'>{job.jobDescription} </div>
             </Col>
           </Row>
           <Row>
@@ -79,6 +140,20 @@ function JobDetail() {
           </Row>
         </div >
       </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>AI Generated Interview Questions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{questions}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   )
 }
