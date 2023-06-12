@@ -3,9 +3,9 @@ import { db } from "../utils/firebase";
 import * as React from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/DataTable.css';
-import {Spinner, Container, Table, Badge} from 'react-bootstrap';
+import {Spinner, Container, Table, Dropdown} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import '../styles/Global.css';
 
 export class JobTable extends React.Component {
   constructor() {
@@ -43,7 +43,8 @@ export class JobTable extends React.Component {
     /* Job Table screen once data has been loaded */
     else {
       return (
-        <Container className='jobs-container'>
+        <Container className='job-container'>
+          <div className="jobs-container">
           <h4 className='form-title'>Job Applications</h4>
           <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
             <thead>
@@ -51,8 +52,8 @@ export class JobTable extends React.Component {
                 {/* <th>id</th> */}
                 <th>Company</th>
                 <th align="right">Position</th>
-                <th align="right">Application Date</th>
-                <th align="right">Follow Up Date</th>
+                <th align="right">Date Applied</th>
+                {/* <th align="right">Follow Up Date</th> */}
                 <th align="right">Status</th>
                 <th align="right"></th>
               </tr>
@@ -73,7 +74,7 @@ export class JobTable extends React.Component {
                       </a>
                     </th>
                     <th align="right">{job.data.appDate}</th>
-                    <th align="right">{job.data.followUpDate}</th>
+                    {/* <th align="right">{job.data.followUpDate}</th> */}
                     <th align="right">
                       <div
                           id="badge"className={job.data.status}>
@@ -82,9 +83,7 @@ export class JobTable extends React.Component {
                     </th>
                     <th align="right">
                       <Link to={`/jobs/${job.key}`} state={{
-                        job: job.data, jobKey: job.key
-                        // id: job.key, company: job.company, position: job.position, appDate: job.appDate, followUpDate: job.followUpDate, jobLink: job.jobLink, status: job.status, notes: job.notes
-                      }}>
+                        job: job.data, jobKey: job.key}}>
                         <MoreHorizIcon />
                       </Link>
                     </th>
@@ -93,6 +92,7 @@ export class JobTable extends React.Component {
               })}
             </tbody>
           </Table>
+          </div>
         </Container>
       )
     }

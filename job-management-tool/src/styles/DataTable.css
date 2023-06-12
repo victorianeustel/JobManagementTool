@@ -1,14 +1,15 @@
 .jobs-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 20px;
-    border: 2px;
-    border-style: solid;
-    border-color: #2E36AA;
-    width: 68% !important;
-    font-size: 12px;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 3%;
+  border: 2px;
+  border-style: solid;
+  border-color: #2E36AA;
+  width: 80%;
     animation: fadeInAnimation 0.25s linear;
 }
 
@@ -32,29 +33,6 @@ tbody{
     font-size: 10px;
 }
 
-#badge{
-  border-radius: 20px;
-  padding: 2px;
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: center;
-  font-size: 10px;
-  color: white;
-}
 
-/* BADGE COLORS - based on application status value (class name) */
-.Applied{
-  background-color: #EFDCCE;
-}
 
-.Followed{
-  background-color: #ccbde3;
-}
 
-.Archived {
-  background-color: rgb(213, 213, 213);
-}
-
-.Interviewing {
-  background-color: #eecdda;
-}
