@@ -7,12 +7,12 @@ export const fetchQuestions = async (input) => {
         {
             prompt: `"${input}" \n Create a list of five interview questions from the job description.
         Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
-        [ 
-          "first interview questions", 
-          "second interview question",
-          "third interview question",
-          "fourth interview question",
-          "fifth interview question"
+        [
+            "first interview questions", 
+            "second interview question",
+            "third interview question",
+            "fourth interview question",
+            "fifth interview question"
         ]
         The JSON response:`,
             model: model,
@@ -39,18 +39,18 @@ export const fetchKeywords = async (input) => {
         {
             prompt: `"${input}" \n Create a list of ten keywords from the job description.
         Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
-        [ 
-          "first keyword", 
-          "second keyword", 
-          "third keyword", 
-          "fourth keyword", 
-          "fifth keyword", 
-          "sixth keyword", 
-          "seventh keyword", 
-          "eighth keyword", 
-          "ninth keyword", 
-          "tenth keyword", 
-        ]
+        {
+          "1":"first keyword", 
+          "2":"second keyword", 
+          "3":"third keyword", 
+          "4":"fourth keyword", 
+          "5":"fifth keyword", 
+          "6":"sixth keyword", 
+          "7":"seventh keyword", 
+          "8":"eighth keyword", 
+          "9":"ninth keyword", 
+          "10":"tenth keyword"
+        }
         The JSON response:`,
             model: model,
             temperature: 0.5,

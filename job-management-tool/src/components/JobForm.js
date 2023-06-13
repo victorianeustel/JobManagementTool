@@ -4,6 +4,7 @@ import {Button, Row, Col, Form, Container} from "react-bootstrap";
 import { Dialog, DialogActions, DialogTitle } from '@mui/material';
 import '../styles/FormStyle.css';
 import { writeJobData } from "../actions/Database";
+import { fetchQuestions, fetchKeywords } from "../actions/OpenAiData";
 
 const AddJob = () => {
     const [form, setForm] = useState({
@@ -16,7 +17,9 @@ const AddJob = () => {
         jobLink: '',
         status: '',
         jobDescription: '',
-        notes: 'N/A'
+        notes: 'N/A',
+        keywords: {"1": "", "2": ""},
+        interviewQuestions: {"1": "", "2": ""},
     })
 
     const [open, setOpen] = React.useState(false);
@@ -57,7 +60,8 @@ const AddJob = () => {
             setErrors(formErrors);
         }
         else {
-            writeJobData(form.appDate, form.appID, form.company, form.followUpDate, form.jobID, form.jobLink, form.position, form.status, form.jobDescription, form.notes)
+
+            writeJobData(form.appDate, form.appID, form.company, form.followUpDate, form.jobID, form.jobLink, form.position, form.status, form.jobDescription, form.notes, form.interviewQuestions, form.keywords)
             setOpen(true);
         }
     };

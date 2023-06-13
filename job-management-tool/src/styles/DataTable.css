@@ -3,13 +3,13 @@
   background-color: white;
   border-radius: 20px;
   padding: 25px;
-  margin-left: 10%;
-  margin-right: 10%;
+  /* margin-left: 10%;
+  margin-right: 10%; */
   margin-bottom: 3%;
   border: 2px;
   border-style: solid;
   border-color: #2E36AA;
-  width: 80%;
+  /* width: 80%; */
     animation: fadeInAnimation 0.25s linear;
 }
 
