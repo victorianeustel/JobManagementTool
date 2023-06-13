@@ -4,40 +4,8 @@ import '../styles/JobDetail.css';
 import { Button, Row, Col, Container, Form, Label, Modal, Spinner } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/Global.css';
-import axios from 'axios';
 import LoadingButton from './Button';
-
-const fetchData = async (input) => {
-  const model = "text-davinci-003";
-  const response = await axios.post(
-    "https://api.openai.com/v1/completions",
-    {
-      prompt: `"${input}" \n Create a list of five interview questions from the job description.
-      Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
-      [ 
-        "first interview questions", 
-        "second interview question",
-        "third interview question",
-        "fourth interview question",
-        "fifth interview question"
-      ]
-      The JSON response:`,
-      model: model,
-      temperature: 0.5,
-      max_tokens: 150,
-      top_p: 1.0,
-      frequency_penalty: 0.8,
-      presence_penalty: 0.0,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-      },
-    }
-  );
-  return response.data.choices[0].text;
-};
+import { fetchData } from '../actions/OpenAiData';
 
 function JobDetail() {
   const location = useLocation();

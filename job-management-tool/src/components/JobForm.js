@@ -1,25 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { getDatabase, ref, push } from "firebase/database";
 import {Button, Row, Col, Form, Container} from "react-bootstrap";
 import { Dialog, DialogActions, DialogTitle } from '@mui/material';
 import '../styles/FormStyle.css';
-
-function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, jobDescription, notes) {
-    const db = getDatabase();
-    push(ref(db, 'jobApplications/'), {
-        appDate: appDate,
-        appID: appID,
-        company: company,
-        followUpDate: followUpDate,
-        jobID: jobID,
-        jobLink: jobLink,
-        position: position,
-        status: status,
-        jobDescription: jobDescription,
-        notes: notes
-    });
-};
+import { writeJobData } from "../actions/Database";
 
 const AddJob = () => {
     const [form, setForm] = useState({
@@ -62,7 +46,6 @@ const AddJob = () => {
         if (!status || status === '') newErrors.status = 'App. Status cannot be blank'
         if (!jobLink || jobLink === '') newErrors.jobLink = 'Link to job description cannot be blank'
         if (!jobDescription || jobDescription === '') newErrors.jobDescription = 'Please add job description.'
-
 
         return newErrors
     }
