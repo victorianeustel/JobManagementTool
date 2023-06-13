@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom'
-import { useState, useEffect, React } from "react";
+import { useState, React } from "react";
 import '../styles/JobDetail.css';
-import { Button, Row, Col, Container, Form, Label, Modal, Spinner } from "react-bootstrap";
+import { Button, Row, Col, Container, Form, Modal, Spinner } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/Global.css';
 import LoadingButton from './Button';
-import { fetchData } from '../actions/OpenAiData';
+import { fetchQuestions, fetchKeywords } from '../actions/OpenAiData';
 
 function JobDetail() {
   const location = useLocation();
@@ -23,7 +23,7 @@ function JobDetail() {
   async function handleClick() {
     try {
       setShowLoader(true);
-      const questionList = await fetchData(job.jobDescription);
+      const questionList = await fetchQuestions(job.jobDescription);
       setQuestions(JSON.parse(questionList));
       setShowLoader(false);
       setShow(true);
