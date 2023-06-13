@@ -37,3 +37,7 @@ Badge Styling for Status of Jobs
   Button {
     background-color: #8F61DB !important;
   }
+
+  .loadingButton {
+    width: 175px ;
+  }

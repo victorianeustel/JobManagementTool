@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import { useState, React } from "react";
+import { useState, useEffect, React } from "react";
 import '../styles/JobDetail.css';
 import { Button, Row, Col, Container, Form, Label, Modal, Spinner } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
@@ -12,7 +12,16 @@ const fetchData = async (input) => {
   const response = await axios.post(
     "https://api.openai.com/v1/completions",
     {
-      prompt: `"${input}" \n Create an ordered list of five interview questions based on the job description. `,
+      prompt: `"${input}" \n Create a list of five interview questions from the job description.
+      Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
+      [ 
+        "first interview questions", 
+        "second interview question",
+        "third interview question",
+        "fourth interview question",
+        "fifth interview question"
+      ]
+      The JSON response:`,
       model: model,
       temperature: 0.5,
       max_tokens: 150,
@@ -30,8 +39,6 @@ const fetchData = async (input) => {
   return response.data.choices[0].text;
 };
 
-
-
 function JobDetail() {
   const location = useLocation();
   const job = location.state?.job;
@@ -39,20 +46,18 @@ function JobDetail() {
 
   var linkSubString = (job.jobLink).substring(0, 30) + "...";
 
-  const [questions, setQuestions] = useState("");
+  const [questions, setQuestions] = useState([]);
   const [show, setShow] = useState(false);
   const [showLoader, setShowLoader] = useState(false)
 
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
 
   async function handleClick() {
     try {
       setShowLoader(true);
-      const questions = await fetchData(job.jobDescription);
-      setQuestions(questions);
-      console.log(questions);
-
+      const questionList = await fetchData(job.jobDescription);
+      setQuestions(JSON.parse(questionList));
+      setShowLoader(false);
       setShow(true);
     } catch (error) {
       console.error(error);
@@ -144,13 +149,21 @@ function JobDetail() {
         <Modal.Header closeButton>
           <Modal.Title>AI Generated Interview Questions</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{questions}</Modal.Body>
+        <Modal.Body>
+          <ol>
+            {questions.map((item, key) => {
+              return (<li key={key}>{item} </li>);
+            })}
+          </ol>
+
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
+          
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Save Questions
           </Button>
         </Modal.Footer>
       </Modal>

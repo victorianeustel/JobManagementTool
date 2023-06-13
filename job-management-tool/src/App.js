@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/footer';
 import JobDetail from './components/JobDetails';
-import ChattyApp from './components/openai';
 
 function App() {
   return (

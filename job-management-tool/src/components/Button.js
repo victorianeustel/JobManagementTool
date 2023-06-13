@@ -3,8 +3,8 @@ import {Button} from "react-bootstrap"
 
 const LoadingButton = ({ onSubmit, text, loading, disabled }) => {
   return (
-    <Button className="submit-btn" onClick={onSubmit} disabled={disabled}>
-      {!loading ? text : <Spinner/>}
+    <Button className="loadingButton" onClick={onSubmit} disabled={disabled}>
+      {!loading ? text : <Spinner animation="border" size="sm"/>}
     </Button>
   )
 }
