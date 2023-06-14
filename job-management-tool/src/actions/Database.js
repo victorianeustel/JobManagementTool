@@ -1,4 +1,5 @@
-import { getDatabase, ref, push, update } from "firebase/database";
+import { getDatabase, ref, push, update, get } from "firebase/database";
+import { onValue } from "firebase/database";
 
 export function writeJobData(appDate, appID, company, followUpDate, jobID, jobLink, position, status, jobDescription, notes, interviewQuestions, keywords) {
     const db = getDatabase();
@@ -41,19 +42,40 @@ export function updateJob(id, interviewQuestions, keywords) {
             "10": `${keywords[10]}`
         }
     });
-
-    // A post entry.
-    // const postData = {
-    //   keywords: keywords,
-    //   interviewQuestions: interviewQuestions
-    // };
-
-    // Write the new post's data simultaneously in the posts list and the user's post list.
-    // const updates = {};
-    // updates['/jobApplications/' + id ] = postData;
-
-    // firebase.database().ref().child('/jobApplications/' + id).update({
-    //     keywords: keywords, interviewQuestions: interviewQuestions 
-    // });
-    // return update(ref(db), updates);
 }
+
+export function getJobData() {
+    const db = getDatabase();
+    const dbRef = ref(db, 'jobApplications');
+    onValue(dbRef, (snapshot) => {
+        const records = [];
+        snapshot.forEach(childSnapshot => {
+          const keyName = childSnapshot.key;
+          const data = childSnapshot.val();
+          records.push({ "key": keyName, "data": data });
+        });
+        return records;
+      });
+}
+
+export const getData = (entry) => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      const ref = databaseRef(database, entry);
+      onValue(ref, (snapshot) => {
+        const array = [];
+        // For each data in the entry
+        snapshot.forEach((el) => {
+          // Push the object to the array
+          // If you also need to store the unique key from firebase,
+          // You can use array.push({ ...el.val(), key: el.key });
+          array.push(el.val());
+        });
+        setData(array);
+      });
+      // Clean-up function
+      return () => off(ref);
+    }, [entry]);
+  
+    return data;
+  };

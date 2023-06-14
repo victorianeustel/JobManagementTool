@@ -1,8 +1,7 @@
 import './App.css';
-import { JobTable } from './components/JobTable';
+import JobTable from './components/JobTable';
 import NavBar from './components/NavBar';
 import AddJob from './components/JobForm';
-import JobDetails from './components/JobDetails';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +16,7 @@ function App() {
         <Route exact path="/" element={<JobTable />} />
         <Route exact path="/jobs" element={<JobTable />} />
         <Route exact path="/addjob" element={<AddJob />} />
-        <Route path="/jobs/:jobKey" element={<JobDetail />}/>
+        <Route path="/jobs/:jobId" element={<JobDetail />}/>
       </Routes>
       {/* <Footer /> */}
     </Router>

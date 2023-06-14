@@ -3,48 +3,41 @@ import { db } from "../utils/firebase";
 import * as React from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/DataTable.css';
-import {Spinner, Container, Table, Dropdown} from 'react-bootstrap';
+import { Spinner, Container, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Global.css';
+import { useState, useEffect } from "react";
 
-export class JobTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      tableData: [], isLoading: true
-    }
+function JobTable() {
+  const [tableData, setTableData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const dbRef = ref(db, 'jobApplications');
+
+  //   onValue(dbRef, (snapshot) => {
+  //     let records = [];
+  //     snapshot.forEach(childSnapshot => {
+  //       let keyName = childSnapshot.key;
+  //       let data = childSnapshot.val();
+  //       records.push({ "key": keyName, "data": data });
+  //     });
+  //   });
+  // }, [tableData]);
+
+  /* Loading screen while data is loading from database */
+  if (isLoading) {
+    return (
+      <div className='loading-container'>
+        <Spinner animation="border" variant="light" />
+      </div>
+    )
   }
-
-  componentDidMount() {
-    const dbRef = ref(db, 'jobApplications');
-
-    onValue(dbRef, (snapshot) => {
-      let records = [];
-      snapshot.forEach(childSnapshot => {
-        let keyName = childSnapshot.key;
-        let data = childSnapshot.val();
-        records.push({ "key": keyName, "data": data });
-      });
-      this.setState({ tableData: records, isLoading: false });
-    });
-  }
-
-  render() {
-    const { tableData, isLoading } = this.state;
-
-    /* Loading screen while data is loading from database */
-    if (isLoading) {
-      return (
-        <div className='loading-container'>
-          <Spinner animation="border" variant="light" />
-        </div>
-      )
-    }
-    /* Job Table screen once data has been loaded */
-    else {
-      return (
-        <Container className='job-container'>
-          <div className="jobs-container">
+  /* Job Table screen once data has been loaded */
+  else {
+    return (
+      <Container className='job-container'>
+        <div className="jobs-container">
           <h4 className='form-title'>Job Applications</h4>
           <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
             <thead>
@@ -77,13 +70,16 @@ export class JobTable extends React.Component {
                     {/* <th align="right">{job.data.followUpDate}</th> */}
                     <th align="right">
                       <div
-                          id="badge"className={job.data.status}>
+                        id="badge" className={job.data.status}>
                         {job.data.status}
                       </div>
                     </th>
                     <th align="right">
-                      <Link to={`/jobs/${job.key}`} state={{
-                        job: job.data, jobKey: job.key}}>
+                      <Link to={`/jobs/${job.key}`} 
+                      // state={{
+                      //   job: job.data, jobKey: job.key
+                      // }}
+                      >
                         <MoreHorizIcon />
                       </Link>
                     </th>
@@ -92,9 +88,11 @@ export class JobTable extends React.Component {
               })}
             </tbody>
           </Table>
-          </div>
-        </Container>
-      )
-    }
+        </div>
+      </Container>
+    )
   }
+
 }
+
+export default JobTable;

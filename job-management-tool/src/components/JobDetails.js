@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useState, React } from "react";
 import '../styles/JobDetail.css';
-import { Button, Grid, Row, Col, Container, Form, Modal, Spinner } from "react-bootstrap";
+import { Button, Row, Col, Container, Form, Modal, Spinner } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/Global.css';
 import LoadingButton from './Button';
@@ -13,7 +13,7 @@ function JobDetail() {
   const job = location.state?.job;
   const jobKey = location.state?.jobKey;
 
-  var linkSubString = (job.jobLink).substring(0, 30) + "...";
+  const linkSubString = (job.jobLink).substring(0, 30) + "...";
 
   const [questions, setQuestions] = useState([]);
   const [keywords, setKeywords] = useState([]);
