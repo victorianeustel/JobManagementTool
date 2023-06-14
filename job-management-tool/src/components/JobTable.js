@@ -7,45 +7,44 @@ import {Spinner, Container, Table, Dropdown} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Global.css';
 
-export class JobTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      tableData: [], isLoading: true
-    }
-  }
+import { useState, useEffect } from "react";
 
-  componentDidMount() {
+export function JobTable() {
+  const [tableData, setTableData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
     const dbRef = ref(db, 'jobApplications');
 
-    onValue(dbRef, (snapshot) => {
+    const fetchData = (snapshot) => {
       let records = [];
-      snapshot.forEach(childSnapshot => {
+      snapshot.forEach((childSnapshot) => {
         let keyName = childSnapshot.key;
         let data = childSnapshot.val();
-        records.push({ "key": keyName, "data": data });
+        records.push({ key: keyName, data: data });
       });
-      this.setState({ tableData: records, isLoading: false });
-    });
-  }
+      setTableData(records);
+      setIsLoading(false);
+    };
 
-  render() {
-    const { tableData, isLoading } = this.state;
+    const handleData = onValue(dbRef, fetchData);
 
-    /* Loading screen while data is loading from database */
-    if (isLoading) {
-      return (
-        <div className='loading-container'>
-          <Spinner animation="border" variant="light" />
-        </div>
-      )
-    }
-    /* Job Table screen once data has been loaded */
-    else {
-      return (
-        <Container className='job-container'>
-          <div className="jobs-container">
-          <h4 className='form-title'>Job Applications</h4>
+    return () => {
+      handleData(); // Clean up the event listener when the component unmounts
+    };
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spinner animation="border" variant="light" />
+      </div>
+    );
+  } else {
+    return (
+      <Container className="job-container">
+        <div className="jobs-container">
+          <h4 className="form-title">Job Applications</h4>
           <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" className="jobs-table">
             <thead>
               <tr>
@@ -59,42 +58,33 @@ export class JobTable extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {tableData.map((job, index) => {
-                return (
-                  <tr
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={job.key}
-                  >
-                    {/* <th>{job.key}</th> */}
-                    <th component="th" scope="row">
-                      {job.data.company}
-                    </th>
-
-                    <th align="right">
-                      <a href={job.data.jobLink}>{job.data.position}
-                      </a>
-                    </th>
-                    <th align="right">{job.data.appDate}</th>
-                    {/* <th align="right">{job.data.followUpDate}</th> */}
-                    <th align="right">
-                      <div
-                          id="badge"className={job.data.status}>
-                        {job.data.status}
-                      </div>
-                    </th>
-                    <th align="right">
-                      <Link to={`/jobs/${job.key}`} state={{
-                        job: job.data, jobKey: job.key}}>
-                        <MoreHorizIcon />
-                      </Link>
-                    </th>
-                  </tr>
-                )
-              })}
+              {tableData.map((job, index) => (
+                <tr sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={job.key}>
+                  {/* <th>{job.key}</th> */}
+                  <th component="th" scope="row">
+                    {job.data.company}
+                  </th>
+                  <th align="right">
+                    <a href={job.data.jobLink}>{job.data.position}</a>
+                  </th>
+                  <th align="right">{job.data.appDate}</th>
+                  {/* <th align="right">{job.data.followUpDate}</th> */}
+                  <th align="right">
+                    <div id="badge" className={job.data.status}>
+                      {job.data.status}
+                    </div>
+                  </th>
+                  <th align="right">
+                    <Link to={`/jobs/${job.key}`} state={{ job: job.data, jobKey: job.key }}>
+                      <MoreHorizIcon />
+                    </Link>
+                  </th>
+                </tr>
+              ))}
             </tbody>
           </Table>
-          </div>
-        </Container>
-      )
-    }
+        </div>
+      </Container>
+    );
   }
 }
